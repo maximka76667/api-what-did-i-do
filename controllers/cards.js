@@ -17,7 +17,8 @@ const addCard = (req, res, next) => {
 };
 
 const changePoints = (req, res, next) => {
-  Card.findByIdAndUpdate(req.user._id, req.body, { new: true, runValidators: true })
+  const { cardId } = req.params;
+  Card.findByIdAndUpdate(cardId, req.body, { new: true, runValidators: true })
     .then((card) => {
       if (!card) throw new NotFoundError(cardsErrorMessage);
       if (card.owner._id.toString() !== req.user._id) {
