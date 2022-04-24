@@ -5,6 +5,7 @@ const NOT_FOUND_ERROR_CODE = 404;
 const CONFLICT_ERROR_CODE = 409;
 const DEFAULT_ERROR_CODE = 500;
 
+// Translate messages to english
 const errorMessages = {
   validationErrorMessage: {
     default: 'Переданы некорректные данные.',
@@ -15,7 +16,7 @@ const errorMessages = {
   incorrectCredentialsErrorMessage: 'Неправильная почта или пароль.',
   forbiddenErrorMessage: 'Отказано в доступе.',
   notFoundErrorMessages: {
-    movies: 'Карточка с указанным _id не найдена.',
+    cards: 'Карточка с указанным _id не найдена.',
     users: 'Пользователь по указанному _id не найден.',
     routes: 'Запрашиваемый маршрут не найден.',
   },
