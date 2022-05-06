@@ -1,8 +1,6 @@
 const Card = require('../models/card');
-const NotFoundError = require('../errors/not-found-error');
-const ForbiddenError = require('../errors/forbidden-error');
+const { ForbiddenError, NotFoundError, handleErrors } = require('../errors');
 const { errorMessages: { forbiddenErrorMessage, notFoundErrorMessages: { cards: cardsErrorMessage } } } = require('../errors/error-config');
-const handleErrors = require('../errors/handle-errors');
 
 const getUserCards = (req, res, next) => {
   Card.find({ owner: req.user._id })

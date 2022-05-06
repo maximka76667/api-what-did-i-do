@@ -2,9 +2,9 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { getUserCards, addCard, deleteCard } = require('../controllers/cards');
 const {
-  auth, signout, createUser, login, updateUser, getMyUser,
+  signout, createUser, login, updateUser, getMyUser,
 } = require('../controllers/users');
-const routeNotFound = require('../middlewares/route-not-found');
+const { auth, routeNotFound } = require('../middlewares');
 
 router.post(
   '/signup',

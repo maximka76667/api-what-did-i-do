@@ -3,7 +3,7 @@ const config = require('../config');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 const { errorMessages } = require('../errors/error-config');
-const UnauthorizedError = require('../errors/unauthorized-error');
+const { UnauthorizedError } = require('../errors');
 
 const { unauthorizedErrorMessage } = errorMessages;
 

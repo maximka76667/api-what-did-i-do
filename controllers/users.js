@@ -4,10 +4,8 @@ const User = require('../models/user');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 const config = require('../config');
-const NotFoundError = require('../errors/not-found-error');
-const ForbiddenError = require('../errors/forbidden-error');
+const { ForbiddenError, NotFoundError, handleErrors } = require('../errors');
 const { errorMessages } = require('../errors/error-config');
-const handleErrors = require('../errors/handle-errors');
 
 const { forbiddenErrorMessage } = errorMessages;
 const notFoundErrorMessage = errorMessages.notFoundErrorMessages.users;

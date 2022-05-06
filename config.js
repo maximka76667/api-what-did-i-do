@@ -2,9 +2,6 @@ const { LOGIN, PASSWORD } = process.env;
 const config = {};
 
 config.ALLOWED_CORS = [
-  'https://max76667.movies.nomoredomains.club',
-  'http://max76667.movies.nomoredomains.club',
-  'max76667.movies.nomoredomains.club',
   'localhost:3000',
   'http://localhost:3000',
   'localhost:3001',

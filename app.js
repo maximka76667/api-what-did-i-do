@@ -8,14 +8,14 @@ const { PORT = 3000 } = process.env;
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const cors = require('cors');
-const limiter = require('./middlewares/rate-limiter');
 
 // Config
 const { ALLOWED_CORS, DEFAULT_ALLOWED_METHODS, DB_URL } = require('./config');
 
 // Middlewares
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const errorHandler = require('./middlewares/error-handler');
+const {
+  errorHandler, requestLogger, errorLogger, limiter,
+} = require('./middlewares');
 
 const app = express();
 
