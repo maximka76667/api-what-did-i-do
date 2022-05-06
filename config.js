@@ -13,6 +13,6 @@ config.ALLOWED_CORS = [
 ];
 config.DEFAULT_ALLOWED_METHODS = 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS';
 config.JWT_SECRET_DEV = 'jwt-secret';
-config.DB_URL = `mongodb+srv://${LOGIN}:${PASSWORD}@cluster0.vdazw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+config.DB_URL = `mongodb+srv://${LOGIN}:${PASSWORD}@cluster0.vdazw.mongodb.net/whatDidIDo?retryWrites=true&w=majority`;
 
 module.exports = config;
