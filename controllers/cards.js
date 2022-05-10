@@ -1,10 +1,13 @@
 const Card = require('../models/card');
 const { ForbiddenError, NotFoundError, handleErrors } = require('../errors');
 const { errorMessages: { forbiddenErrorMessage, notFoundErrorMessages: { cards: cardsErrorMessage } } } = require('../errors/error-config');
+const compareDates = require('../utils/compareDates');
 
 const getUserCards = (req, res, next) => {
   Card.find({ owner: req.user._id })
-    .then((cards) => res.send({ cards }))
+    .then((cards) => res.send({
+      cards: cards.sort(compareDates),
+    }))
     .catch((err) => next(handleErrors(err)));
 };
 
@@ -14,9 +17,8 @@ const addCard = (req, res, next) => {
     .catch((err) => next(handleErrors(err)));
 };
 
-const changePoints = (req, res, next) => {
+const addPoint = (req, res, next) => {
   const { cardId } = req.params;
-  console.log(req.body);
   Card.findByIdAndUpdate(cardId, {
     $addToSet: {
       points: req.body.point,
@@ -80,5 +82,5 @@ module.exports = {
   getUserCards,
   addCard,
   deleteCard,
-  changePoints,
+  addPoint,
 };

@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-const { getUserCards, addCard, deleteCard } = require('../controllers/cards');
+const {
+  getUserCards, addCard, deleteCard, addPoint,
+} = require('../controllers/cards');
 const {
   signout, createUser, login, updateUser, getMyUser,
 } = require('../controllers/users');
@@ -39,7 +41,7 @@ router.post(
   celebrate({
     body: Joi.object().keys({
       date: Joi.string().required(),
-      points: Joi.array().required().default([]),
+      points: Joi.array().items(Joi.string()),
     }),
   }),
   addCard,
@@ -48,13 +50,17 @@ router.post(
 router.patch(
   '/cards/:cardId',
   celebrate({
-    body: Joi.object().keys({
-      points: Joi.array().required().default([]),
+    body: Joi.object({
+      point: Joi.object({
+        name: Joi.string().required(),
+      })
+        .required(),
     }),
     params: Joi.object().keys({
       cardId: Joi.string().hex().length(24),
     }),
   }),
+  addPoint,
 );
 
 router.delete(
