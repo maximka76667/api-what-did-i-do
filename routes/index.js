@@ -48,7 +48,9 @@ router.post(
 router.patch(
   '/cards/:cardId',
   celebrate({
-    body: Joi.array(),
+    body: Joi.object().keys({
+      points: Joi.array().required().default([]),
+    }),
     params: Joi.object().keys({
       cardId: Joi.string().hex().length(24),
     }),
