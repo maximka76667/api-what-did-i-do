@@ -73,6 +73,19 @@ const deleteCard = (req, res, next) => {
     .catch((err) => next(handleErrors(err)));
 };
 
+const deletePoint = (req, res, next) => {
+  const { cardId, pointId } = req.params;
+
+  Card.findByIdAndUpdate(cardId, {
+    $pull: {
+      points: { _id: pointId },
+    },
+  }, { new: true })
+    // To do handle errors
+    .then((card) => res.send(card))
+    .catch((err) => next(handleErrors(err)));
+};
+
 // const getMovies = (req, res, next) => {
 //   Movie.find({})
 //     .then((movies) => res.send({ movies: movies.reverse() }))
@@ -108,4 +121,5 @@ module.exports = {
   addPoint,
   getPoint,
   updatePoint,
+  deletePoint,
 };

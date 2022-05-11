@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const {
-  getUserCards, addCard, deleteCard, addPoint, getPoint, updatePoint,
+  getUserCards, addCard, deleteCard, addPoint, getPoint, updatePoint, deletePoint,
 } = require('../controllers/cards');
 const {
   signout, createUser, login, updateUser, getMyUser,
@@ -99,6 +99,17 @@ router.delete(
     }),
   }),
   deleteCard,
+);
+
+router.delete(
+  '/cards/:cardId/points/:pointId',
+  celebrate({
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+      pointId: Joi.string().hex().length(24),
+    }),
+  }),
+  deletePoint,
 );
 
 // Users routes
