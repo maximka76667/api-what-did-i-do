@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const {
-  getUserCards, addCard, deleteCard, addPoint,
+  getUserCards, addCard, deleteCard, addPoint, getPoint, updatePoint,
 } = require('../controllers/cards');
 const {
   signout, createUser, login, updateUser, getMyUser,
@@ -61,6 +61,34 @@ router.patch(
     }),
   }),
   addPoint,
+);
+
+router.get(
+  '/cards/:cardId/points/:pointId',
+  celebrate({
+    body: Joi.object({
+      newName: Joi.string().required(),
+    }),
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+      pointId: Joi.string().hex().length(24),
+    }),
+  }),
+  getPoint,
+);
+
+router.patch(
+  '/cards/:cardId/points/:pointId',
+  celebrate({
+    body: Joi.object({
+      newName: Joi.string().required(),
+    }),
+    params: Joi.object().keys({
+      cardId: Joi.string().hex().length(24),
+      pointId: Joi.string().hex().length(24),
+    }),
+  }),
+  updatePoint,
 );
 
 router.delete(

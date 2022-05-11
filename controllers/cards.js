@@ -17,7 +17,7 @@ const addCard = (req, res, next) => {
     .catch((err) => next(handleErrors(err)));
 };
 
-const addPoint = (req, res, next) => {
+const addPoint = async (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(cardId, {
     $addToSet: {
@@ -29,8 +29,31 @@ const addPoint = (req, res, next) => {
       if (card.owner._id.toString() !== req.user._id) {
         throw new ForbiddenError(forbiddenErrorMessage);
       }
-      return res.send({ card });
+      const { points: newPoints } = card;
+      const newPoint = newPoints[newPoints.length - 1];
+      res.send({ newPoint });
     })
+    .catch((err) => next(handleErrors(err)));
+};
+
+const getPoint = (req, res, next) => {
+  const { cardId, pointId } = req.params;
+  Card.findOne({ _id: cardId, 'points._id': pointId })
+    .then((card) => res.send({
+      card,
+    }))
+    .catch((err) => next(handleErrors(err)));
+};
+
+const updatePoint = (req, res, next) => {
+  const { cardId, pointId } = req.params;
+  Card.findOneAndUpdate({ _id: cardId, 'points._id': pointId }, {
+    $set: {
+      'points.$.name': req.body.newName,
+    },
+  }, { new: true })
+    .then((card) => res.send(card))
+    // To do handleErrors
     .catch((err) => next(handleErrors(err)));
 };
 
@@ -83,4 +106,6 @@ module.exports = {
   addCard,
   deleteCard,
   addPoint,
+  getPoint,
+  updatePoint,
 };
