@@ -10,6 +10,7 @@ const { errorMessages } = require('../errors/error-config');
 const { forbiddenErrorMessage } = errorMessages;
 const notFoundErrorMessage = errorMessages.notFoundErrorMessages.users;
 
+// Rewrite all promises to async/await
 const getMyUser = (req, res, next) => {
   User.find({ _id: req.user._id })
     .then((user) => res.send({ user: user[0] }))

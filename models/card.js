@@ -5,7 +5,7 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (date) => date.match(/\d{1,2}-\d{1,2}-\d{4}/),
+      validator: (date) => date.match(/\d{4}-\d{1,2}-\d{1,2}/),
     },
   },
   points: {

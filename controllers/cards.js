@@ -1,7 +1,7 @@
+const compareDates = require('../utils/compareDates');
 const Card = require('../models/card');
 const { ForbiddenError, NotFoundError, handleErrors } = require('../errors');
 const { errorMessages: { forbiddenErrorMessage, notFoundErrorMessages: { cards: cardsErrorMessage } } } = require('../errors/error-config');
-const compareDates = require('../utils/compareDates');
 
 const getUserCards = (req, res, next) => {
   Card.find({ owner: req.user._id })
