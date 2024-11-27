@@ -5,12 +5,9 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  prebuild:
+  build_and_deploy:
     docker:
       - image: cimg/gcp:2024.08
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
       - checkout
       - run:
@@ -19,15 +16,10 @@ jobs:
       - run:
           name: Auth GCR
           command: gcloud auth configure-docker europe-southwest1-docker.pkg.dev
-      - store_artifacts:
-          path: build_log.txt # This stores the build logs for later inspection
-
-  build_and_deploy:
-    docker:
-      - image: cimg/gcp:2024.08
-    steps:
       - setup_remote_docker:
           docker_layer_caching: true # Enable layer caching for faster builds
+      - store_artifacts:
+          path: build_log.txt # This stores the build logs for later inspection
       - run:
           name: Build Docker Image
           command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api .
@@ -42,5 +34,4 @@ jobs:
 workflows:
   deploy-workflow:
     jobs:
-      - prebuild
       - build_and_deploy
