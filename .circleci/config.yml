@@ -7,7 +7,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/google/cloud-sdk:slim
+      - image: cimg/gcp:2024.08
 
     # Add steps to the job
     # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/google/cloud-sdk:slim
+      - image: cimg/gcp:2024.08
     steps:
       - run:
           name: Auth GCR
