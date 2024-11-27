@@ -39,9 +39,8 @@ jobs:
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   deploy-workflow:
-    build_and_deploy:
-      jobs:
-        - build
-        - deploy:
-          requires:
-            - build
+    jobs:
+      - build
+      - deploy:
+        requires:
+          - build
