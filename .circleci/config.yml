@@ -29,12 +29,18 @@ jobs:
       - run:
           name: Save Docker Build Logs
           command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api . > build_log.txt || true
-      - run:
-          name: Push Docker Image
-          command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api:latest
+
       - store_artifacts:
           path: build_log.txt # This stores the build logs for later inspection
 
+  deploy:
+    docker:
+      - image: cimg/base:stable
+
+    steps:
+      - run:
+          name: Push Docker Image
+          command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api:latest
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -44,3 +50,4 @@ workflows:
       - deploy:
         requires:
           - build
+          - deploy
