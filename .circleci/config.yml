@@ -34,7 +34,7 @@ jobs:
           command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api . > build_log.txt || true
       - run:
           name: Push Docker Image
-          command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api:latest
+          command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api:latest
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
