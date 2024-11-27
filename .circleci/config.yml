@@ -16,17 +16,10 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
-      - setup_remote_docker:
-          docker_layer_caching: true # Enable layer caching for faster builds
       - run:
           name: Auth GCR
           command: gcloud auth configure-docker europe-southwest1-docker.pkg.dev
-      - run:
-          name: Build Docker Image
-          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api .
-      - run:
-          name: Save Docker Build Logs
-          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api . > build_log.txt || true
+
       - store_artifacts:
           path: build_log.txt # This stores the build logs for later inspection
 
@@ -34,6 +27,14 @@ jobs:
     docker:
       - image: cimg/gcp:2024.08
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true # Enable layer caching for faster builds
+      - run:
+          name: Build Docker Image
+          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api .
+      - run:
+          name: Save Docker Build Logs
+          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api . > build_log.txt || true
       - run:
           name: Push Docker Image
           command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api:latest
@@ -43,4 +44,5 @@ workflows:
   deploy-workflow:
     jobs:
       - build
-      - deploy
+      - deploy:
+        require: build
