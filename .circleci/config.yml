@@ -17,7 +17,6 @@ jobs:
           name: Install dependencies
           command: npm install
       - setup_remote_docker:
-          version: 20.10.7
           docker_layer_caching: true # Enable layer caching for faster builds
       - run:
           name: Auth GCR
