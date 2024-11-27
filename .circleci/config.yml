@@ -16,6 +16,12 @@ jobs:
       - run:
           name: Install dependencies
           command: npm install
+      - run:
+          name: Install Node.js and npm
+          command: |
+            apt-get update && apt-get install -y curl
+            curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+            apt-get install -y nodejs
       - setup_remote_docker:
           docker_layer_caching: true # Enable layer caching for faster builds
 
@@ -23,9 +29,6 @@ jobs:
           path: build_log.txt # This stores the build logs for later inspection
 
   deploy:
-    docker:
-      - image: cimg/google/cloud-sdk:slim
-
     steps:
       - run:
           name: Auth GCR
