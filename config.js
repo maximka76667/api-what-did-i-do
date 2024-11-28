@@ -10,6 +10,7 @@ config.ALLOWED_CORS = [
   "http://localhost:5000",
   "https://maximka76667.github.io",
   "maximka76667.github.io",
+  "https://wdid-api-971815910885.europe-southwest1.run.app",
 ];
 config.DEFAULT_ALLOWED_METHODS = "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS";
 config.JWT_SECRET_DEV = "jwt-secret";
