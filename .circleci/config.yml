@@ -28,10 +28,10 @@ jobs:
           path: build_log.txt # This stores the build logs for later inspection
       - run:
           name: Build Docker Image
-          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api .
+          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api .
       - run:
           name: Save Docker Build Logs
-          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api . > build_log.txt || true
+          command: docker build -t europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api . > build_log.txt || true
       - run:
           name: Push Docker Image
           command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api:latest
