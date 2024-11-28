@@ -20,7 +20,10 @@ jobs:
             gcloud auth activate-service-account --key-file=/tmp/gcloud-key.json
             gcloud auth configure-docker europe-southwest1-docker.pkg.dev
       - run:
-          name: Auth GCR
+          name: Set Config Project
+          command: gcloud config set project wdid-api
+      - run:
+          name: Configure Docker
           command: gcloud auth configure-docker europe-southwest1-docker.pkg.dev
       - setup_remote_docker:
           docker_layer_caching: true # Enable layer caching for faster builds
@@ -35,6 +38,9 @@ jobs:
       - run:
           name: Push Docker Image
           command: docker push europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api:latest
+      - run:
+          name: Deploy Image to Cloud Run
+          command: gcloud run deploy wdid-api --image=europe-southwest1-docker.pkg.dev/wdid-api/wdid-api/wdid-api --region=europe-southwest1 --platform=managed --allow-unauthenticated
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
