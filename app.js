@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-const { PORT = 3001 } = process.env;
+const { PORT = 8080 } = process.env;
 
 // Security
 const cookieParser = require("cookie-parser");
@@ -59,7 +59,7 @@ app.use(require("./routes/index"));
 app.use(errorLogger);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on port ${PORT}`);
 });
 connectDB();
